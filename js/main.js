@@ -11,7 +11,7 @@ function formJournalSubmit(event) {
   newObj.imgsrc = $formJournal.elements.photoUrl.value;
   newObj.notes = $formJournal.elements.notes.value;
   newObj.nextEntryId = data.nextEntryId;
-  data.nextEntryId = (data.nextEntryId) + 1;
+  data.entryId = (data.nextEntryId) + 1;
   data.entries.push(newObj);
   var jsonEntries = JSON.stringify(data.entries);
 
