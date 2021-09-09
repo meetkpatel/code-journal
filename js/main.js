@@ -56,8 +56,8 @@ function domTree(entriesData) {
   $row.setAttribute('class', 'row');
   $columnHalfImg.setAttribute('class', 'column-half img-block');
   $columnHalfText.setAttribute('class', 'column-half text-block');
-  $columnHalfTitle.setAttribute('class', 'column-half title-block width-100 ');
-  $columnHalfPara.setAttribute('class', 'column-half para-block width-100 ');
+  $columnHalfTitle.setAttribute('class', 'column-half title-block width-100 font-family-proza');
+  $columnHalfPara.setAttribute('class', 'column-half para-block width-100 font-family-proza');
   $imgElement.setAttribute('src', entriesData.imgsrc);
 
   $ul.appendChild($li);
