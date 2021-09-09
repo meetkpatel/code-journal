@@ -36,7 +36,7 @@ button {
 
 .align-content-center {
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -65,7 +65,7 @@ ul {
   background-color: transparent;
 }
 
-.margin-right-10px {
+.margin-right-30px {
   margin-right: 30px;
 }
 
@@ -75,4 +75,20 @@ ul {
 
 .column-full button {
   margin-top: 1.5rem;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.entriesBtn {
+  cursor: pointer;
+}
+
+.new-btn {
+  cursor: pointer;
 }
