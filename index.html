@@ -17,58 +17,80 @@
 </head>
 <body>
   <header class="font-family-proza">
-      <div class="container">
+      <div class="container navBar">
         <div class="row">
-        <div class="column-full">
-          <h2 class="font-family-proza">Code Journal</h2>
-        </div>
+          <div class="margin-right-30px align-content-center">
+            <h2 class="font-family-proza">Code Journal</h2>
+          </div>
+          <div class="margin-right-30px align-content-center">
+            <a class="font-family-proza entriesBtn " data-view="entries">Entries</a>
+          </div>
         </div>
       </div>
   </header>
   <main>
-    <div class="container">
-      <div class="row">
-        <div class="column-full">
-          <h1 class="font-family-proza">New Entry</h1>
+    <div data-view="entry-form" class="view">
+      <div class="container">
+        <div class="row">
+          <div class="column-full">
+            <h1 class="font-family-proza">New Entry</h1>
+          </div>
         </div>
-      </div>
-      <div data-view="entry-form">
-        <form id="form-journal">
-          <div class="row">
-            <div class="column-half">
-              <img src="images/placeholder-image-square.jpg" id="imageDisplay" alt="Journal Image">
-            </div>
+          <form id="form-journal">
+            <div class="row">
               <div class="column-half">
+                <img src="images/placeholder-image-square.jpg" id="imageDisplay" alt="Journal Image">
+              </div>
+                <div class="column-half">
+                  <div>
+                    <label class="font-family-proza" for="title">Title</label>
+                  </div>
+                  <div>
+                    <input type="text" id="title" name="title" required >
+                  </div>
+                  <div>
+                    <label class="font-family-proza" for="photoUrl">Photo URL</label>
+                  </div>
+                  <div>
+                    <input type="text" id="photoUrl" name="photoUrl" required >
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="column-full">
                 <div>
-                  <label class="font-family-proza" for="title">Title</label>
+                  <label class="font-family-proza" for="notes">Notes</label>
                 </div>
                 <div>
-                  <input type="text" id="title" name="title" required >
-                </div>
-                <div>
-                  <label class="font-family-proza" for="photoUrl">Photo URL</label>
-                </div>
-                <div>
-                  <input type="text" id="photoUrl" name="photoUrl" required >
+                  <textarea name="notes" id="notes" rows="8" required ></textarea>
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <div class="column-full">
+                <button type="submit" class="font-family-proza">SAVE</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+    <div data-view="entries" class="view">
+      <div class="container jornalEntries" >
+        <div class="row">
+          <div class="column-full entriesBar">
+            <h1 class="font-family-proza inline-block new">Entries</h1>
+            <button class="font-family-proza new-btn"><a data-view="entry-form">NEW</a></button>
           </div>
-          <div class="row">
-            <div class="column-full">
-              <div>
-                <label class="font-family-proza" for="notes">Notes</label>
-              </div>
-              <div>
-                <textarea name="notes" id="notes" rows="8" required ></textarea>
+        </div>
+        <div id="displayEntries">
+          <div id="noentry" class="hidden">
+            <div class="row">
+              <div class="column-full">
+                <p class="center-text font-family-proza">No entries have been recorded</p>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="column-full">
-              <button type="submit" class="font-family-proza">SAVE</button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </main>
