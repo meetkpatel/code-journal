@@ -5,9 +5,19 @@ var $displayEntriesDiv = document.querySelector('#displayEntries');
 var $imgurl = document.querySelector('#photoUrl');
 var $imageDisplay = document.querySelector('#imageDisplay');
 var $formJournal = document.querySelector('#form-journal');
-var $newBtn = document.querySelector('.new-btn');
-var $tabs = document.querySelectorAll('.tab');
-var $entriesBtn = document.querySelector('.entriesBtn');
+var $view = document.querySelectorAll('.view');
+var $navBar = document.querySelector('.navBar');
+var $entriesBar = document.querySelector('.entriesBar');
+
+$navBar.addEventListener('click', handleViewNavigation);
+$entriesBar.addEventListener('click', handleViewNavigation);
+
+function handleViewNavigation(event) {
+  if (!event.target.matches('A')) {
+    return;
+  }
+  switchView(event.target.getAttribute('data-view'));
+}
 
 function imgUrlInput(event) {
   var imgsrc = event.target.value;
@@ -27,14 +37,7 @@ function formJournalSubmit(event) {
   $formJournal.reset();
   var $entriesFetch = domTree(newObj);
   $displayEntriesDiv.prepend($entriesFetch);
-  for (var i = 0; i < $tabs.length; i++) {
-    if ($tabs[i].getAttribute('data-view') === data.view) {
-      $tabs[i].className = 'tab hidden';
-    } else {
-      $tabs[i].className = 'tab';
-      data.view = 'entries';
-    }
-  }
+  switchView('entries');
   $noEntry.className = 'hidden';
 }
 
@@ -75,17 +78,13 @@ function domTree(entriesData) {
   return $ul;
 }
 
-$entriesBtn.addEventListener('click', switchView);
-$newBtn.addEventListener('click', switchView);
-
-function switchView(event) {
-  var viewSwitch = event.target.getAttribute('data-view');
+function switchView(viewSwitch) {
   data.view = viewSwitch;
-  for (var i = 0; i < $tabs.length; i++) {
-    if ($tabs[i].getAttribute('data-view') === viewSwitch) {
-      $tabs[i].className = 'tab';
+  for (var i = 0; i < $view.length; i++) {
+    if ($view[i].getAttribute('data-view') === viewSwitch) {
+      $view[i].className = 'view';
     } else {
-      $tabs[i].className = 'tab hidden';
+      $view[i].className = 'view hidden';
     }
   }
 }
@@ -105,10 +104,4 @@ function DOMContentLoadedCall(event) {
 
 window.addEventListener('DOMContentLoaded', DOMContentLoadedCall);
 
-for (var i = 0; i < $tabs.length; i++) {
-  if ($tabs[i].getAttribute('data-view') === data.view) {
-    $tabs[i].className = 'tab';
-  } else {
-    $tabs[i].className = 'tab hidden';
-  }
-}
+switchView(data.view);

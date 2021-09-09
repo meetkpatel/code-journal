@@ -17,26 +17,25 @@
 </head>
 <body>
   <header class="font-family-proza">
-      <div class="container">
+      <div class="container navBar">
         <div class="row">
           <div class="margin-right-30px align-content-center">
             <h2 class="font-family-proza">Code Journal</h2>
           </div>
           <div class="margin-right-30px align-content-center">
-            <h3 class="font-family-proza entriesBtn" data-view="entries">Entries</h3>
+            <a class="font-family-proza entriesBtn " data-view="entries">Entries</a>
           </div>
         </div>
       </div>
   </header>
   <main>
-    <div data-view="entry-form" class="tab">
+    <div data-view="entry-form" class="view">
       <div class="container">
         <div class="row">
           <div class="column-full">
             <h1 class="font-family-proza">New Entry</h1>
           </div>
         </div>
-        <!-- <div data-view="entry-form"> -->
           <form id="form-journal">
             <div class="row">
               <div class="column-half">
@@ -75,19 +74,19 @@
           </form>
         </div>
     </div>
-    <div data-view="entries" class="tab">
+    <div data-view="entries" class="view">
       <div class="container jornalEntries" >
         <div class="row">
-          <div class="column-full">
+          <div class="column-full entriesBar">
             <h1 class="font-family-proza inline-block new">Entries</h1>
-            <button class="font-family-proza new-btn" data-view="entry-form">NEW</button>
+            <button class="font-family-proza new-btn"><a data-view="entry-form">NEW</a></button>
           </div>
         </div>
         <div id="displayEntries">
           <div id="noentry" class="hidden">
             <div class="row">
               <div class="column-full">
-                <p class="center-text font-family-proza">now entries has been recorded</p>
+                <p class="center-text font-family-proza">No entries have been recorded</p>
               </div>
             </div>
           </div>

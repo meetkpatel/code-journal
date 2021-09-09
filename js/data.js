@@ -7,9 +7,9 @@ var data = {
   nextEntryId: 1
 };
 
-var previosData = localStorage.getItem('forms-journal-entries');
-if (previosData !== null) {
-  data = JSON.parse(previosData);
+var previousData = localStorage.getItem('forms-journal-entries');
+if (previousData !== null) {
+  data = JSON.parse(previousData);
 }
 
 function beforeunloadFunction(event) {
