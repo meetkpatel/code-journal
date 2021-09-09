@@ -19,56 +19,74 @@
   <header class="font-family-proza">
       <div class="container">
         <div class="row">
-        <div class="column-full">
-          <h2 class="font-family-proza">Code Journal</h2>
-        </div>
+          <div class="margin-right-10px align-content-center">
+            <h2 class="font-family-proza">Code Journal</h2>
+          </div>
+          <div class="margin-right-10px align-content-center">
+            <h3 class="font-family-proza entriesBtn">Entries</h3>
+          </div>
         </div>
       </div>
   </header>
   <main>
-    <div class="container">
-      <div class="row">
-        <div class="column-full">
-          <h1 class="font-family-proza">New Entry</h1>
+    <div data-view="entry-form" class="tab">
+      <div class="container">
+        <div class="row">
+          <div class="column-full">
+            <h1 class="font-family-proza">New Entry</h1>
+          </div>
         </div>
-      </div>
-      <div data-view="entry-form">
-        <form id="form-journal">
-          <div class="row">
-            <div class="column-half">
-              <img src="images/placeholder-image-square.jpg" id="imageDisplay" alt="Journal Image">
-            </div>
+        <!-- <div data-view="entry-form"> -->
+          <form id="form-journal">
+            <div class="row">
               <div class="column-half">
-                <div>
-                  <label class="font-family-proza" for="title">Title</label>
-                </div>
-                <div>
-                  <input type="text" id="title" name="title" required >
-                </div>
-                <div>
-                  <label class="font-family-proza" for="photoUrl">Photo URL</label>
-                </div>
-                <div>
-                  <input type="text" id="photoUrl" name="photoUrl" required >
-                </div>
+                <img src="images/placeholder-image-square.jpg" id="imageDisplay" alt="Journal Image">
               </div>
-          </div>
-          <div class="row">
-            <div class="column-full">
-              <div>
-                <label class="font-family-proza" for="notes">Notes</label>
-              </div>
-              <div>
-                <textarea name="notes" id="notes" rows="8" required ></textarea>
+                <div class="column-half">
+                  <div>
+                    <label class="font-family-proza" for="title">Title</label>
+                  </div>
+                  <div>
+                    <input type="text" id="title" name="title" required >
+                  </div>
+                  <div>
+                    <label class="font-family-proza" for="photoUrl">Photo URL</label>
+                  </div>
+                  <div>
+                    <input type="text" id="photoUrl" name="photoUrl" required >
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="column-full">
+                <div>
+                  <label class="font-family-proza" for="notes">Notes</label>
+                </div>
+                <div>
+                  <textarea name="notes" id="notes" rows="8" required ></textarea>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="column-full">
-              <button type="submit" class="font-family-proza">SAVE</button>
+            <div class="row">
+              <div class="column-full">
+                <button type="submit" class="font-family-proza">SAVE</button>
+              </div>
             </div>
+          </form>
+        </div>
+    </div>
+    <div data-view="entries" class="tab">
+      <div class="container jornalEntries" >
+        <div class="row">
+          <div class="column-full">
+            <h1 class="font-family-proza inline-block new">Entries</h1>
+            <button class="font-family-proza new-btn" data-view="entries">NEW</button>
           </div>
-        </form>
+          <div class="column-half align-content-center">
+
+          </div>
+        </div>
+        <div id="displayEntries"></div>
       </div>
     </div>
   </main>
