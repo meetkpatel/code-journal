@@ -32,7 +32,20 @@ function deleteClick(event) {
 }
 
 function deleteConfirmClick(event) {
-
+  for (var i = 0; i < $liElements.length; i++) {
+    if ($liElements[i].getAttribute('data-entry-id') === data.editing) {
+      $liElements[i].remove();
+      break;
+    }
+  }
+  for (var j = 0; j < data.entries.length; j++) {
+    if (parseInt(data.entries[j].entryId) === parseInt(data.editing)) {
+      data.entries.splice(j, 1);
+    }
+  }
+  $cancelationPage.setAttribute('class', 'cancelationPage hidden');
+  data.editing = null;
+  switchView('entries');
 }
 
 function handleLiClick(event) {
@@ -84,7 +97,6 @@ function formJournalSubmit(event) {
         }
       }
     }
-
     data.editing = null;
     switchView('entries');
   } else {
