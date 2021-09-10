@@ -26,7 +26,6 @@ function handleLiClick(event) {
   if (!event.target.matches('I')) {
     return;
   }
-
   editLiElement(event.target.getAttribute('data-entry-id'));
   switchView('edit-entry-form');
 }
@@ -99,7 +98,6 @@ function formJournalSubmit(event) {
   switchView('entries');
   $noEntry.className = 'hidden';
 }
-
 $imgurl.addEventListener('input', imgUrlInput);
 $formJournal.addEventListener('submit', formJournalSubmit);
 

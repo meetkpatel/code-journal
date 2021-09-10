@@ -34,12 +34,6 @@ button {
   border: none;
 }
 
-.align-content-center-start {
-  display: flex;
-  justify-content: flex;
-  align-items: center;
-}
-
 .align-content-space-between {
   display: flex;
   justify-content: space-between;
