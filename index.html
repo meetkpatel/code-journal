@@ -23,7 +23,7 @@
             <h2 class="font-family-proza">Code Journal</h2>
           </div>
           <div class="margin-right-30px align-content-center">
-            <a class="font-family-proza entriesBtn " data-view="entries">Entries</a>
+            <h3><a class="font-family-proza entriesBtn " data-view="entries">Entries</a></h3>
           </div>
         </div>
       </div>
@@ -82,7 +82,10 @@
             <button class="font-family-proza new-btn"><a data-view="entry-form">NEW</a></button>
           </div>
         </div>
-        <div id="displayEntries">
+        <div>
+          <ul id="displayEntries">
+
+          </ul>
           <div id="noentry" class="hidden">
             <div class="row">
               <div class="column-full">
@@ -91,6 +94,51 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div data-view="edit-entry-form" class="view">
+      <div class="container">
+        <div class="row">
+          <div class="column-full">
+            <h1 class="font-family-proza">Edit Entry</h1>
+          </div>
+        </div>
+        <form id="edit-form-journal">
+          <div class="row">
+            <div class="column-half">
+              <img src="images/placeholder-image-square.jpg" id="editImageDisplay" alt="Journal Image">
+            </div>
+            <div class="column-half">
+              <div>
+                <label class="font-family-proza" for="editTitle">Title</label>
+              </div>
+              <div>
+                <input type="text" id="editTitle" name="editTitle" required>
+              </div>
+              <div>
+                <label class="font-family-proza" for="editPhotoUrl">Photo URL</label>
+              </div>
+              <div>
+                <input type="text" id="editPhotoUrl" name="editPhotoUrl" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full">
+              <div>
+                <label class="font-family-proza" for="editNotes">Notes</label>
+              </div>
+              <div>
+                <textarea name="notes" id="editNotes" rows="8" required></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full">
+              <button type="submit" class="font-family-proza">SAVE</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </main>
