@@ -8,6 +8,10 @@ var $formJournal = document.querySelector('#form-journal');
 var $view = document.querySelectorAll('.view');
 var $navBar = document.querySelector('.navBar');
 var $entriesBar = document.querySelector('.entriesBar');
+var $aDelete = document.querySelector('.aDelete');
+var $cancelationPage = document.querySelector('.cancelationPage');
+var $cancelBtn = document.querySelector('.cancelBtn');
+var $deleteBtn = document.querySelector('.deleteBtn');
 
 var $liElements = document.getElementsByTagName('li');
 var $newEntryColumn = document.querySelector('.new-entry');
@@ -16,6 +20,33 @@ var $editEntryColumn = document.querySelector('.edit-entry');
 $navBar.addEventListener('click', handleViewNavigation);
 $entriesBar.addEventListener('click', handleViewNavigation);
 $displayEntriesLi.addEventListener('click', handleLiClick);
+$aDelete.addEventListener('click', deleteClick);
+$cancelBtn.addEventListener('click', cancelBtnClick);
+$deleteBtn.addEventListener('click', deleteConfirmClick);
+
+function cancelBtnClick(event) {
+  $cancelationPage.setAttribute('class', 'cancelationPage hidden');
+}
+function deleteClick(event) {
+  $cancelationPage.setAttribute('class', 'cancelationPage');
+}
+
+function deleteConfirmClick(event) {
+  for (var i = 0; i < $liElements.length; i++) {
+    if ($liElements[i].getAttribute('data-entry-id') === data.editing) {
+      $liElements[i].remove();
+      break;
+    }
+  }
+  for (var j = 0; j < data.entries.length; j++) {
+    if (parseInt(data.entries[j].entryId) === parseInt(data.editing)) {
+      data.entries.splice(j, 1);
+    }
+  }
+  $cancelationPage.setAttribute('class', 'cancelationPage hidden');
+  data.editing = null;
+  switchView('entries');
+}
 
 function handleLiClick(event) {
   if (!event.target.matches('I')) {
@@ -66,7 +97,6 @@ function formJournalSubmit(event) {
         }
       }
     }
-
     data.editing = null;
     switchView('entries');
   } else {
@@ -110,7 +140,6 @@ function domTree(entriesData) {
   $li.setAttribute('data-entry-id', entriesData.entryId);
   $imgElement.setAttribute('src', entriesData.imgsrc);
 
-  // $ul.appendChild($li);
   $li.appendChild($row);
   $row.appendChild($columnHalfImg);
   $columnHalfImg.appendChild($imgElement);
@@ -131,9 +160,11 @@ function switchView(viewSwitch) {
     editLiElement();
     $editEntryColumn.setAttribute('class', 'edit-entry column-full');
     $newEntryColumn.setAttribute('class', 'edit-entry hidden column-full');
+    $aDelete.setAttribute('class', 'aDelete');
   } else {
     $editEntryColumn.setAttribute('class', 'edit-entry hidden column-full');
     $newEntryColumn.setAttribute('class', 'edit-entry  column-full');
+    $aDelete.setAttribute('class', 'aDelete hidden');
   }
   data.view = viewSwitch;
   for (var i = 0; i < $view.length; i++) {
