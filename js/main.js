@@ -140,7 +140,6 @@ function domTree(entriesData) {
   $li.setAttribute('data-entry-id', entriesData.entryId);
   $imgElement.setAttribute('src', entriesData.imgsrc);
 
-  // $ul.appendChild($li);
   $li.appendChild($row);
   $row.appendChild($columnHalfImg);
   $columnHalfImg.appendChild($imgElement);
