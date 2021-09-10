@@ -8,6 +8,7 @@ var $formJournal = document.querySelector('#form-journal');
 var $view = document.querySelectorAll('.view');
 var $navBar = document.querySelector('.navBar');
 var $entriesBar = document.querySelector('.entriesBar');
+var $aDelete = document.querySelector('.aDelete');
 
 var $liElements = document.getElementsByTagName('li');
 var $newEntryColumn = document.querySelector('.new-entry');
@@ -131,9 +132,11 @@ function switchView(viewSwitch) {
     editLiElement();
     $editEntryColumn.setAttribute('class', 'edit-entry column-full');
     $newEntryColumn.setAttribute('class', 'edit-entry hidden column-full');
+    $aDelete.setAttribute('class', 'aDelete');
   } else {
     $editEntryColumn.setAttribute('class', 'edit-entry hidden column-full');
     $newEntryColumn.setAttribute('class', 'edit-entry  column-full');
+    $aDelete.setAttribute('class', 'aDelete hidden');
   }
   data.view = viewSwitch;
   for (var i = 0; i < $view.length; i++) {
