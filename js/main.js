@@ -5,39 +5,33 @@ var $displayEntriesLi = document.querySelector('#displayEntries');
 var $imgurl = document.querySelector('#photoUrl');
 var $imageDisplay = document.querySelector('#imageDisplay');
 var $formJournal = document.querySelector('#form-journal');
-var $editFormJournal = document.querySelector('#edit-form-journal');
 var $view = document.querySelectorAll('.view');
 var $navBar = document.querySelector('.navBar');
 var $entriesBar = document.querySelector('.entriesBar');
 
-var $editImageDisplay = document.querySelector('#editImageDisplay');
-var $editTitle = document.querySelector('#editTitle');
-var $editPhotoUrl = document.querySelector('#editPhotoUrl');
-var $editNotes = document.querySelector('#editNotes');
 var $liElements = document.getElementsByTagName('li');
+var $newEntryColumn = document.querySelector('.new-entry');
+var $editEntryColumn = document.querySelector('.edit-entry');
 
 $navBar.addEventListener('click', handleViewNavigation);
 $entriesBar.addEventListener('click', handleViewNavigation);
 $displayEntriesLi.addEventListener('click', handleLiClick);
 
-$editFormJournal.addEventListener('submit', editformJournalSubmit);
-
 function handleLiClick(event) {
   if (!event.target.matches('I')) {
     return;
   }
-  editLiElement(event.target.getAttribute('data-entry-id'));
-  switchView('edit-entry-form');
+  data.editing = event.target.getAttribute('data-entry-id');
+  switchView('entry-form');
 }
 
-function editLiElement(editId) {
+function editLiElement() {
   for (var i = 0; i < data.entries.length; i++) {
-    if (data.entries[i].entryId === parseInt(editId)) {
-      $editImageDisplay.setAttribute('src', data.entries[i].imgsrc);
-      $editTitle.value = data.entries[i].title;
-      $editPhotoUrl.value = data.entries[i].imgsrc;
-      $editNotes.value = data.entries[i].notes;
-      data.editing = editId;
+    if (data.entries[i].entryId === parseInt(data.editing)) {
+      $imageDisplay.setAttribute('src', data.entries[i].imgsrc);
+      $formJournal.elements.title.value = data.entries[i].title;
+      $formJournal.elements.photoUrl.value = data.entries[i].imgsrc;
+      $formJournal.elements.notes.value = data.entries[i].notes;
     }
   }
 }
@@ -46,7 +40,10 @@ function handleViewNavigation(event) {
   if (!event.target.matches('A')) {
     return;
   }
+  data.editing = null;
   switchView(event.target.getAttribute('data-view'));
+  $formJournal.reset();
+  $imageDisplay.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 
 function imgUrlInput(event) {
@@ -54,49 +51,43 @@ function imgUrlInput(event) {
   $imageDisplay.setAttribute('src', imgsrc);
 }
 
-function editImgUrlInput(event) {
-  var imgsrc = event.target.value;
-  $editImageDisplay.setAttribute('src', imgsrc);
-}
-$editPhotoUrl.addEventListener('input', editImgUrlInput);
-
-function editformJournalSubmit(event) {
-  event.preventDefault();
-  var editObj = {};
-  editObj.title = $editFormJournal.elements.editTitle.value;
-  editObj.imgsrc = $editFormJournal.elements.editPhotoUrl.value;
-  editObj.notes = $editFormJournal.elements.editNotes.value;
-  editObj.entryId = data.editing;
-  for (var i = 0; i < $liElements.length; i++) {
-    if (parseInt($liElements[i].getAttribute('data-entry-id')) === parseInt(data.editing)) {
-      $liElements[i].replaceWith(domTree(editObj));
-    }
-  }
-  for (var j = 0; j < data.entries.length; j++) {
-    if (parseInt(data.entries[j].entryId) === parseInt(data.editing)) {
-      data.entries[j].title = editObj.title;
-      data.entries[j].notes = editObj.notes;
-      data.entries[j].imgsrc = editObj.imgsrc;
-    }
-  }
-  switchView('entries');
-}
-
 function formJournalSubmit(event) {
   event.preventDefault();
-  var newObj = {};
-  newObj.title = $formJournal.elements.title.value;
-  newObj.imgsrc = $formJournal.elements.photoUrl.value;
-  newObj.notes = $formJournal.elements.notes.value;
-  newObj.entryId = data.nextEntryId;
-  data.nextEntryId += 1;
-  data.entries.unshift(newObj);
-  $imageDisplay.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $formJournal.reset();
-  var $entriesFetch = domTree(newObj);
-  $displayEntriesLi.prepend($entriesFetch);
-  switchView('entries');
-  $noEntry.className = 'hidden';
+  if (data.editing !== null) {
+    var editObj = {};
+    editObj.title = $formJournal.elements.title.value;
+    editObj.imgsrc = $formJournal.elements.photoUrl.value;
+    editObj.notes = $formJournal.elements.notes.value;
+    editObj.entryId = data.editing;
+    for (var i = 0; i < $liElements.length; i++) {
+      if ($liElements[i].getAttribute('data-entry-id') === data.editing) {
+        $liElements[i].replaceWith(domTree(editObj));
+      }
+    }
+    for (var j = 0; j < data.entries.length; j++) {
+      if (parseInt(data.entries[j].entryId) === parseInt(data.editing)) {
+        data.entries[j].title = editObj.title;
+        data.entries[j].notes = editObj.notes;
+        data.entries[j].imgsrc = editObj.imgsrc;
+      }
+    }
+    data.editing = null;
+    switchView('entries');
+  } else {
+    var newObj = {};
+    newObj.title = $formJournal.elements.title.value;
+    newObj.imgsrc = $formJournal.elements.photoUrl.value;
+    newObj.notes = $formJournal.elements.notes.value;
+    newObj.entryId = data.nextEntryId;
+    data.nextEntryId += 1;
+    data.entries.unshift(newObj);
+    $imageDisplay.setAttribute('src', 'images/placeholder-image-square.jpg');
+    $formJournal.reset();
+    var $entriesFetch = domTree(newObj);
+    $displayEntriesLi.prepend($entriesFetch);
+    switchView('entries');
+    $noEntry.className = 'hidden';
+  }
 }
 $imgurl.addEventListener('input', imgUrlInput);
 $formJournal.addEventListener('submit', formJournalSubmit);
@@ -140,6 +131,14 @@ function domTree(entriesData) {
 }
 
 function switchView(viewSwitch) {
+  if (data.editing !== null) {
+    editLiElement();
+    $editEntryColumn.setAttribute('class', 'edit-entry column-full');
+    $newEntryColumn.setAttribute('class', 'edit-entry hidden column-full');
+  } else {
+    $editEntryColumn.setAttribute('class', 'edit-entry hidden column-full');
+    $newEntryColumn.setAttribute('class', 'edit-entry  column-full');
+  }
   data.view = viewSwitch;
   for (var i = 0; i < $view.length; i++) {
     if ($view[i].getAttribute('data-view') === viewSwitch) {
@@ -160,7 +159,6 @@ function DOMContentLoadedCall(event) {
   } else {
     $noEntry.className = 'shows';
   }
-
 }
 
 window.addEventListener('DOMContentLoaded', DOMContentLoadedCall);
