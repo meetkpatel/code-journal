@@ -54,23 +54,19 @@ function imgUrlInput(event) {
 function formJournalSubmit(event) {
   event.preventDefault();
   if (data.editing !== null) {
-    var editObj = {};
-    editObj.title = $formJournal.elements.title.value;
-    editObj.imgsrc = $formJournal.elements.photoUrl.value;
-    editObj.notes = $formJournal.elements.notes.value;
-    editObj.entryId = data.editing;
-    for (var i = 0; i < $liElements.length; i++) {
-      if ($liElements[i].getAttribute('data-entry-id') === data.editing) {
-        $liElements[i].replaceWith(domTree(editObj));
-      }
-    }
     for (var j = 0; j < data.entries.length; j++) {
       if (parseInt(data.entries[j].entryId) === parseInt(data.editing)) {
-        data.entries[j].title = editObj.title;
-        data.entries[j].notes = editObj.notes;
-        data.entries[j].imgsrc = editObj.imgsrc;
+        data.entries[j].title = $formJournal.elements.title.value;
+        data.entries[j].notes = $formJournal.elements.notes.value;
+        data.entries[j].imgsrc = $formJournal.elements.photoUrl.value;
+        for (var i = 0; i < $liElements.length; i++) {
+          if ($liElements[i].getAttribute('data-entry-id') === data.editing) {
+            $liElements[i].replaceWith(domTree(data.entries[j]));
+          }
+        }
       }
     }
+
     data.editing = null;
     switchView('entries');
   } else {
