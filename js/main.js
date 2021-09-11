@@ -12,6 +12,7 @@ var $aDelete = document.querySelector('.aDelete');
 var $cancelationPage = document.querySelector('.cancelationPage');
 var $cancelBtn = document.querySelector('.cancelBtn');
 var $deleteBtn = document.querySelector('.deleteBtn');
+var $searchTitle = document.querySelector('#searchTitle');
 
 var $liElements = document.getElementsByTagName('li');
 var $newEntryColumn = document.querySelector('.new-entry');
@@ -23,7 +24,29 @@ $displayEntriesLi.addEventListener('click', handleLiClick);
 $aDelete.addEventListener('click', deleteClick);
 $cancelBtn.addEventListener('click', cancelBtnClick);
 $deleteBtn.addEventListener('click', deleteConfirmClick);
+$searchTitle.addEventListener('input', searchTitleInput);
 
+function searchTitleInput(event) {
+  if (event.target.value.length === 0) {
+    for (var l = 0; l < $liElements.length; l++) {
+      $liElements[l].setAttribute('class', 'show');
+    }
+    return;
+  }
+  var arr = [];
+  for (var j = 0; j < data.entries.length; j++) {
+    if (data.entries[j].title.toLowerCase().indexOf(event.target.value) !== -1) {
+      arr.push(data.entries[j].entryId);
+    }
+  }
+  for (var i = 0; i < $liElements.length; i++) {
+    if (arr.indexOf(parseInt($liElements[i].getAttribute('data-entry-id'))) !== -1) {
+      $liElements[i].setAttribute('class', 'show');
+    } else {
+      $liElements[i].setAttribute('class', 'hidden');
+    }
+  }
+}
 function cancelBtnClick(event) {
   $cancelationPage.setAttribute('class', 'cancelationPage hidden');
 }
