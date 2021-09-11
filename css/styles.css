@@ -156,3 +156,11 @@ a {
   margin: auto;
   text-align: center;
 }
+
+.push-right {
+  float: right;
+}
+
+#searchTitle {
+  width: 20rem;
+}
